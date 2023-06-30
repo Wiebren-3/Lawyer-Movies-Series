@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Modern Lawyer Movies/Series</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .movies-btn,
+    .series-btn {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .movies-btn:hover,
+    .series-btn:hover {
+      background-color: #555;
+    }
+
+    .movie-card {
+      display: flex;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .movie-img {
+      width: 150px;
+      flex-shrink: 0;
+    }
+
+    .movie-content {
+      padding: 20px;
+    }
+
+    .movie-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .movie-description {
+      font-size: 16px;
+      line-height: 1.4;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Modern Lawyer Movies/Series</h1>
+    <div>
+      <button class="movies-btn">Movies</button>
+      <button class="series-btn">Series</button>
+    </div>
+    <div id="list-container"></div>
+  </div>
+
+  <script>
+    const movies = [
+      {
+        title: "The Lincoln Lawyer",
+        description: "A defense attorney takes on a high-profile case involving a wealthy client accused of assault.",
+        image: "images/lincoln_lawyer.jpg",
+      },
+      {
+        title: "Michael Clayton",
+        description: "A 'fixer' at a powerful law firm becomes entangled in a major corporate lawsuit.",
+        image: "images/michael_clayton.jpg",
+      },
+      {
+        title: "A Few Good Men",
+        description: "A military lawyer defends two marines accused of murder in Guantanamo Bay.",
+        image: "images/few_good_men.jpg",
+      },
+      {
+        title: "Fracture",
+        description: "A young attorney faces off against a cunning engineer accused of murdering his wife.",
+        image: "images/fracture.jpg",
+      },
+      {
+        title: "The Judge",
+        description: "A lawyer returns to his hometown to defend his estranged father, a judge, accused of murder.",
+        image: "images/the_judge.jpg",
+      },
+      {
+        title: "Philadelphia",
+        description: "A lawyer takes on a discrimination case on behalf of a gay man with AIDS who was wrongfully terminated.",
+        image: "images/philadelphia.jpg",
+      },
+      {
+        title: "Erin Brockovich",
+        description: "A legal assistant uncovers a massive environmental cover-up and leads a lawsuit against a powerful corporation.",
+        image: "images/erin_brockovich.jpg",
+      },
+      {
+        title: "The Rainmaker",
+        description: "A young lawyer battles a corrupt insurance company on behalf of a terminally ill young man.",
+        image: "images/the_rainmaker.jpg",
+      },
+      {
+        title: "Dark Waters",
+        description: "A corporate defense attorney takes on an environmental lawsuit against a chemical company.",
+        image: "images/dark_waters.jpg",
+      },
+      {
+        title: "The Trial of the Chicago 7",
+        description: "Based on true events, a group of anti-Vietnam War protesters are charged with conspiracy and their trial becomes a political spectacle.",
+        image: "images/trial_of_chicago_7.jpg",
+      }
+    ];
+
+    const series = [
+      {
+        title: "Suits",
+        description: "A talented college dropout is hired by a top law firm despite never having attended law school.",
+        image: "images/suits.jpg",
+      },
+      {
+        title: "Better Call Saul",
+        description: "A prequel to 'Breaking Bad,' this series follows the transformation of Jimmy McGill into the morally ambiguous lawyer Saul Goodman.",
+        image: "images/better_call_saul.jpg",
+      },
+      {
+        title: "The Good Wife",
+        description: "After her politician husband is involved in a sex and corruption scandal, a lawyer must rebuild her career while dealing with personal and professional challenges.",
+        image: "images/good_wife.jpg",
+      },
+      {
+        title: "How to Get Away with Murder",
+        description: "A criminal defense professor and her students become entangled in a murder plot that changes their lives forever.",
+        image: "images/how_to_get_away_with_murder.jpg",
+      },
+      {
+        title: "Boston Legal",
+        description: "A comedic drama following the lives of eccentric lawyers at a high-profile Boston law firm.",
+        image: "images/boston_legal.jpg",
+      },
+      {
+        title: "The Practice",
+        description: "A legal drama centered around a law firm and its attorneys as they handle controversial and high-profile cases.",
+        image: "images/the_practice.jpg",
+      },
+      {
+        title: "Damages",
+        description: "A legal thriller that explores the complex and manipulative world of high-stakes litigation.",
+        image: "images/damages.jpg",
+      },
+      {
+        title: "Billions",
+        description: "A U.S. Attorney engages in an intense legal battle with a wealthy hedge fund manager.",
+        image: "images/billions.jpg",
+      },
+      {
+        title: "The Night Of",
+        description: "A young Pakistani-American student is accused of murder, and his case exposes flaws within the criminal justice system.",
+        image: "images/the_night_of.jpg",
+      },
+      {
+        title: "For the People",
+        description: "Follows the lives and cases of young federal prosecutors and public defenders working in the Southern District of New York.",
+        image: "images/for_the_people.jpg",
+      }
+    ];
+
+    const listContainer = document.getElementById("list-container");
+    const moviesBtn = document.querySelector(".movies-btn");
+    const seriesBtn = document.querySelector(".series-btn");
+
+    moviesBtn.addEventListener("click", () => {
+      renderList(movies);
+      moviesBtn.classList.add("active");
+      seriesBtn.classList.remove("active");
+    });
+
+    seriesBtn.addEventListener("click", () => {
+      renderList(series);
+      seriesBtn.classList.add("active");
+      moviesBtn.classList.remove("active");
+    });
+
+    function renderList(list) {
+      listContainer.innerHTML = "";
+      list.forEach(item => {
+        const movieCard = document.createElement("div");
+        movieCard.classList.add("movie-card");
+
+        const movieImg = document.createElement("img");
+        movieImg.src = item.image;
+        movieImg.alt = item.title;
+        movieImg.classList.add("movie-img");
+        movieCard.appendChild(movieImg);
+
+        const movieContent = document.createElement("div");
+        movieContent.classList.add("movie-content");
+
+        const movieTitle = document.createElement("h2");
+        movieTitle.classList.add("movie-title");
+        movieTitle.textContent = item.title;
+        movieContent.appendChild(movieTitle);
+
+        const movieDescription = document.createElement("p");
+        movieDescription.classList.add("movie-description");
+        movieDescription.textContent = item.description;
+        movieContent.appendChild(movieDescription);
+
+        movieCard.appendChild(movieContent);
+        listContainer.appendChild(movieCard);
+      });
+    }
+
+    // Initially render the movies list
+    renderList(movies);
+    moviesBtn.classList.add("active");
+  </script>
+</body>
+
+</html>
